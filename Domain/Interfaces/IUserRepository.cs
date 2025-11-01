@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    public class IUserRepository : IRepositoryBase<Usuario>
+    public interface IUserRepository : IRepositoryBase<Usuario>
     {
         Task<List<Usuario>> GetUserByNumber();
     }   

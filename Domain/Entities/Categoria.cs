@@ -8,7 +8,7 @@ namespace Domain.Entities
 {
     public class Categoria
     {
-        public int Id_categoria { get; set; }
+        public int Id { get; set; }
         public string Nombre_categoria { get; set; } = null!;
 
         // Relaciones

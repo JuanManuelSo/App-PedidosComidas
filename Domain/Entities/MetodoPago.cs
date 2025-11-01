@@ -8,8 +8,8 @@ namespace Domain.Entities
 {
     public class MetodoPago
     {
-        public int Id_metodoPago { get; set; }
-        public int Fk_id_usuario { get; set; }
+        public int Id { get; set; }
+        public int usuarioID { get; set; }
 
         public MetodoPago Metodo { get; set; } // Tipo de método de pago
 

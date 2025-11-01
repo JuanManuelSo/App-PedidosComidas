@@ -9,9 +9,9 @@ namespace Domain.Entities
 {
     public class Pago
     {
-        public int Id_pago { get; set; }
-        public int Fk_id_pedido { get; set; }
-        public int Fk_id_metodoPago { get; set; }
+        public int Id { get; set; }
+        public int pedidoId { get; set; }
+        public int metodoPagoId { get; set; }
         public DateTime Fecha { get; set; }
         public EstadoPago estado_pago { get; set; }
 
