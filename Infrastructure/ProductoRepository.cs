@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure
 {
-    internal class ProductoRepository
+    public class ProductoRepository
     {
     }
 }
