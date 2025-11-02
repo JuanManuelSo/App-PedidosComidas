@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    public class IPagoRepository
+    public interface IPagoRepository
     {
         Task<List<Pago>> GetPagosByUserId(int userId);
     }

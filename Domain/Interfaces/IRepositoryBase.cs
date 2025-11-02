@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    public class IRepositoryBase<T> where T : class
+    public interface IRepositoryBase<T> where T : class
     {
         Task<List<T>> GetAllAsync();
         Task<T> GetByIdAsync(int id);
