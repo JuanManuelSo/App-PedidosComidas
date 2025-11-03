@@ -11,7 +11,7 @@ namespace Domain.Entities
         public int Id { get; set; }
         public int CategoriaId { get; set; }
         public string Nombre { get; set; } 
-        public float Precio { get; set; }
+        public decimal Precio { get; set; }
 
         // Relaciones
         public Categoria Categoria { get; set; } = null!;
