@@ -14,7 +14,7 @@ namespace Domain.Entities
         public string Direccion { get; set; }
         public string TiempoEstimado { get; set; }
 
-        public decimal PreciotTotal { get; set; }
+        public decimal PrecioTotal { get; set; }
         public EstadoPedido EstadoPedido { get; set; } 
 
         // Relaciones
