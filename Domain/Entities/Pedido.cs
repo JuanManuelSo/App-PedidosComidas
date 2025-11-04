@@ -12,10 +12,10 @@ namespace Domain.Entities
         public int Id { get; set; }
         public int usuarioId { get; set; }
         public string Direccion { get; set; }
-        public string Tiempo_estimado { get; set; }
+        public string TiempoEstimado { get; set; }
 
-        public decimal Precio_total { get; set; }
-        public EstadoPedido Estado_pedido { get; set; } 
+        public decimal PrecioTotal { get; set; }
+        public EstadoPedido EstadoPedido { get; set; } 
 
         // Relaciones
         public Usuario Usuario { get; set; } 

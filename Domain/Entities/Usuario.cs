@@ -15,7 +15,7 @@ namespace Domain.Entities
         public string Contraseña { get; set; }
 
         public string Telefono { get; set; }
-        public RolUsuario rol { get; set; }
+        public RolUsuario Rol { get; set; }
 
         // Relaciones
         public ICollection<Pedido> Pedidos { get; set; } = new List<Pedido>();

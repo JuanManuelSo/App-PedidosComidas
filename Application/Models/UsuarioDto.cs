@@ -1,0 +1,30 @@
+﻿using Domain.Entities;
+using Domain.Enum;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Application.Models
+{
+    public class UsuarioDto
+    {
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public string Telefono { get; set; }
+        public RolUsuario Rol { get; set; }
+        public static UsuarioDto CreateUser(Usuario usuario)
+        {
+            var dto = new UsuarioDto();
+            dto.Id = usuario.Id;
+            dto.Nombre = usuario.Nombre;
+            dto.Apellido = usuario.Apellido;
+            dto.Telefono = usuario.Telefono;
+            dto.Rol = usuario.Rol;
+            return dto;
+        }
+    }
+};
+
