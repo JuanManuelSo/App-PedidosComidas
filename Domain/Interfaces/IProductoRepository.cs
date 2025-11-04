@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    public class IProductoRepository
+    public interface IProductoRepository
     {
         Task<List<Producto>> GetByCategoryAsync(int? Id_categoria );
         

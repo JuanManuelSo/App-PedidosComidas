@@ -9,13 +9,13 @@ namespace Domain.Entities
 {
     public class Usuario
     {
-        public int Id_user { get; set; }
+        public int Id { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Contraseña { get; set; }
 
-        public int Telefono { get; set; }
-        public RolUsario rol { get; set; }
+        public string Telefono { get; set; }
+        public RolUsuario rol { get; set; }
 
         // Relaciones
         public ICollection<Pedido> Pedidos { get; set; } = new List<Pedido>();

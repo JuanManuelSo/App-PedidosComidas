@@ -9,12 +9,12 @@ namespace Domain.Entities
 {
     public class Pedido
     {
-        public int Id_pedido { get; set; }
-        public int Fk_id_usuario { get; set; }
+        public int Id { get; set; }
+        public int usuarioId { get; set; }
         public string Direccion { get; set; }
         public string Tiempo_estimado { get; set; }
 
-        public float Precio_total { get; set; }
+        public decimal Precio_total { get; set; }
         public EstadoPedido Estado_pedido { get; set; } 
 
         // Relaciones

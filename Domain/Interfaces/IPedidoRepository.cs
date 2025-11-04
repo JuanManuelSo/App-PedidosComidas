@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    public class IPedidoRepository
+    public interface IPedidoRepository
     {
     }
 }

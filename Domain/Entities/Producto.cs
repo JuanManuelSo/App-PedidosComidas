@@ -8,8 +8,8 @@ namespace Domain.Entities
 {
     public class Producto
     {
-        public int Id_producto { get; set; }
-        public int Fk_id_categoria { get; set; }
+        public int Id { get; set; }
+        public int CategoriaId { get; set; }
         public string Nombre { get; set; } 
         public float Precio { get; set; }
 

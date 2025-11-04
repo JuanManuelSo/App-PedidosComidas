@@ -11,6 +11,7 @@ namespace Domain.Entities
         public int Id_itemCarrito { get; set; }
         public int Fk_id_carrito { get; set; }
         public int Fk_id_producto { get; set; }
+
         public int Cantidad { get; set; }
 
         // Relaciones
