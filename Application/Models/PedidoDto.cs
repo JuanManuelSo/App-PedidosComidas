@@ -28,6 +28,16 @@ namespace Application.Models
             dto.EstadoPedido = pedido.EstadoPedido;
             return dto;
         }
+
+        public static List<PedidoDto> CreateList(List<PedidoDto> pedidoList)
+        {
+            var dtoList = new List<PedidoDto>();
+            foreach (var p in pedidoList)
+            {
+                dtoList.Add(CreatePedido(p));
+            }
+            return dtoList;
+        }
     }
 
     public class ItemPedidoDto

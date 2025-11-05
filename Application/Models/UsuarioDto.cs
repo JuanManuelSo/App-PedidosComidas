@@ -13,6 +13,8 @@ namespace Application.Models
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
+        public string Contraseña { get; set; }
+
         public string Telefono { get; set; }
         public RolUsuario Rol { get; set; }
         public static UsuarioDto CreateUser(Usuario usuario)
@@ -24,6 +26,16 @@ namespace Application.Models
             dto.Telefono = usuario.Telefono;
             dto.Rol = usuario.Rol;
             return dto;
+        }
+
+        public static List<UsuarioDto> CreateList(List<Usuario> userList)
+        {
+            var dtoList = new List<UsuarioDto>();
+            foreach (var u in userList)
+            {
+                dtoList.Add(CreateUser(u));
+            }
+            return dtoList;
         }
     }
 };

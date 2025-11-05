@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Models;
+using Application.Models.Request;
 
 namespace Application.Interfaces
 {
     public interface ICategoriaService
     {
-        Task<CategoriaDto> GetCategoriaByIdAsync(int id);
-        Task<IEnumerable<CategoriaDto>> GetAllCategoriasAsync();
-        Task<CategoriaDto> CreateCategoria(CategoriaDto categoria);
-        Task UpdateCategoria(int id, CategoriaDto categoria);
-        Task DeleteCategoria(CategoriaDto categoria);
+        Task<CategoriaDto> GetCategoriaById(int id);
+        Task<IEnumerable<CategoriaDto>> GetAllCategorias();
+        Task<CategoriaDto> CreateCategoria(CreationCategoryDto creationCategoryDto);
+        Task UpdateCategoria(int id, CreationCategoryDto creationCategoryDto);
+        Task DeleteCategoria(int id);
 
     }
 }

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    public interface IPagoRepository : IRepositoryBase<Pago>
+    public interface ICategoryRepository : IRepositoryBase<Categoria>
     {
-        Task<List<Pago>> GetPagosByUserId(int userId);
+        Task<Categoria?> GetCategoryByName(string name);
     }
 }

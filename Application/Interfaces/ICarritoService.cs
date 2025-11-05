@@ -9,10 +9,10 @@ namespace Application.Interfaces
 {
     public interface ICarritoService
     {
-        Task<CarritoDto?> GetCarritoByIdAsync(int id);
-        Task<IEnumerable<CarritoDto>> GetAllCarritosAsync();
+        Task<CarritoDto?> GetCarritoById(int id);
+        Task<IEnumerable<CarritoDto>> GetAllCarritos();
         Task<CarritoDto> CreateCarrito(CarritoDto carrito);
         Task UpdateCarrito(int id,CarritoDto carrito);
-        Task DeleteCarrito(CarritoDto carrito);
+        Task DeleteCarrito(int id);
     }
 }

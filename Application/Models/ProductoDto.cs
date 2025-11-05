@@ -26,5 +26,17 @@ namespace Application.Models
         }
 
 
+        public static List<ProductoDto> CreateList(List<Producto> productList)
+        {
+            var dtoList = new List<ProductoDto>();
+
+            foreach (var p in productList)
+            {
+                dtoList.Add(CreateProducto(p));
+            }
+
+            return dtoList;
+        }
+
     }
 }

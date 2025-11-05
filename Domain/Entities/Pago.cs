@@ -13,7 +13,7 @@ namespace Domain.Entities
         public int pedidoId { get; set; }
         public int metodoPagoId { get; set; }
         public DateTime Fecha { get; set; }
-        public EstadoPago estado_pago { get; set; }
+        public EstadoPago EstadoPago { get; set; }
 
         // Relaciones
         public Pedido Pedido { get; set; } = null!;

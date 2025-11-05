@@ -1,4 +1,5 @@
 ﻿using Application.Models;
+using Application.Models.Request;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,10 @@ namespace Application.Interfaces
 {
     public interface IUsuarioService
     {
-        Task<UsuarioDto?> GetUsuarioByIdAsync(int id);
-        Task<IEnumerable<UsuarioDto>> GetAllUsuariosAsync();
-        Task<UsuarioDto> CreateUsuario(UsuarioDto usuario);
-        Task UpdateUsuario(UsuarioDto usuario);
-        Task DeleteUsuario(UsuarioDto usuario);
+        Task<UsuarioDto?> GetUsuarioById(int id);
+        Task<IEnumerable<UsuarioDto>> GetAllUsuarios();
+        Task<UsuarioDto> CreateUsuario(CreationUserDto creationuserDto);
+        Task UpdateUsuario(int id, CreationUserDto creationuserDto);
+        Task DeleteUsuario(int id);
     }
 }

@@ -9,6 +9,8 @@ namespace Domain.Interfaces
 {
     public interface IUserRepository : IRepositoryBase<Usuario>
     {
+        Task DeleteAsync(Usuario existingUsuario);
+        Task<Usuario?> GetUserByIdAsync(int id);
         Task<List<Usuario>> GetUserByNumber();
     }   
 }
