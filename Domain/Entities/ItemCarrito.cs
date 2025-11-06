@@ -8,9 +8,10 @@ namespace Domain.Entities
 {
     public class ItemCarrito
     {
-        public int Id { get; set; }
-        public int carritoId { get; set; }
-        public int productoId { get; set; }
+        public int Id_itemCarrito { get; set; }
+        public int CarritoId { get; set; }
+        public int ProductoId { get; set; }
+
         public int Cantidad { get; set; }
 
         // Relaciones

@@ -9,10 +9,10 @@ namespace Domain.Entities
     public class ItemPedido
     {
         public int Id { get; set; }
-        public int pedidoId { get; set; }
-        public int productoId { get; set; }
+        public int PedidoId { get; set; }
+        public int ProductoId { get; set; }
         public int Cantidad { get; set; }
-        public decimal Precio_unitario { get; set; }
+        public decimal PrecioUnitario { get; set; }
 
         // Relaciones
         public Pedido Pedido { get; set; } 

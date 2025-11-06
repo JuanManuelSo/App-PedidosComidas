@@ -10,7 +10,7 @@ namespace Domain.Entities
     public class Pedido
     {
         public int Id { get; set; }
-        public int usuarioId { get; set; }
+        public int UsuarioId { get; set; }
         public string Direccion { get; set; }
         public string TiempoEstimado { get; set; }
 

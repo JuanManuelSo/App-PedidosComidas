@@ -12,10 +12,12 @@ namespace Application.Interfaces
     public interface IPedidoService
     {
         Task<PedidoDto> GetPedidoById(int id);
-        Task<IEnumerable<PedidoDto>> GetAllPedidos(int usuarioId,EstadoPedido Pedido);
+        Task<IEnumerable<PedidoDto>> GetAllPedidos();
+        Task<IEnumerable<PedidoDto>> GetPedidosByEstado(EstadoPedido estado);
         Task<PedidoDto> CreatePedido(CreationPedidoDto creationPedidoDto);
-        Task UpdatePedido(int id, CreationPedidoDto creationPedidoDto);
+        Task UpdateEstadoPedido(int id, EstadoPedido nuevoEstado);
         Task DeletePedido(int id);
         Task <IEnumerable<PedidoDto>> GetPedidosByUsuarioId(int usuarioId);
+      
     }
 }

@@ -9,7 +9,7 @@ namespace Domain.Entities
     public class Carrito
     {
         public int Id { get; set; }
-        public int usuarioId { get; set; }
+        public int UsuarioId { get; set; }
 
 
         // Relaciones

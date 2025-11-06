@@ -11,11 +11,11 @@ namespace Application.Models
     public class UsuarioDto
     {
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Contraseña { get; set; }
+        public string Nombre { get; set; } = string.Empty;
+        public string Apellido { get; set; } = string.Empty;
+        public string Contraseña { get; set; } = string.Empty;
 
-        public string Telefono { get; set; }
+        public string Telefono { get; set; } = string.Empty;
         public RolUsuario Rol { get; set; }
         public static UsuarioDto CreateUser(Usuario usuario)
         {
