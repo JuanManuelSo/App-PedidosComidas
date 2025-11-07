@@ -9,10 +9,8 @@ namespace Domain.Entities
     public class MetodoPago
     {
         public int Id { get; set; }
-        public int UsuarioID { get; set; }
-
-        public MetodoPago Metodo { get; set; } // Tipo de método de pago
-
+        public int UsuarioId { get; set; }
+        public string TipoMetodo { get; set; }
         public string Detalles { get; set; } 
 
         // Relaciones

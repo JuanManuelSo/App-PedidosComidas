@@ -11,7 +11,7 @@ namespace Domain.Interfaces
     {
         Task<List<Producto>> GetByNombreAsync(string? Nombre);
 
-        Task<List<Producto>> GetByCategoryAsync(int? Id_categoria );
+        Task<List<Producto>> GetByCategoryAsync(int? categoriaId);
 
     }
 }

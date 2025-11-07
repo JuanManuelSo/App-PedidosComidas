@@ -46,6 +46,13 @@ namespace Application.Services
             {
                 throw new NotFoundException($"Usuario con id:{creationCarritoDto.UsuarioId} no fue encontrado.");
             }
+
+            // Verificar si ya existe un carrito para este usuario
+            var carritoExistente = await _carritoRepository.GetByUserIdAsync(creationCarritoDto.UsuarioId);
+            if (carritoExistente != null)
+            {
+                throw new InvalidOperationException($"El usuario con id:{creationCarritoDto.UsuarioId} ya tiene un carrito.");
+            }
             var newCarrito = new Carrito();
 
             newCarrito.UsuarioId = creationCarritoDto.UsuarioId;
@@ -81,14 +88,114 @@ namespace Application.Services
             return CarritoDto.CreateCarrito(carrito); 
         }
 
-        public async Task UpdateCarrito(int id, CarritoDto carrito)
+        //Metodos para items del carrito
+        public async Task<CarritoDto> AddItemToCarrito(int carritoId, int productoId, int cantidad)
         {
-            var carritoToUpdate = await _carritoRepository.GetByIdAsync(id);
-            if (carritoToUpdate == null)
+            if (cantidad <= 0)
             {
-                throw new NotFoundException($"Carrito con id:{id} no fue encontrado.");
+                throw new ArgumentException("La cantidad debe ser mayor que cero.");
             }
-            await _carritoRepository.UpdateAsync(carritoToUpdate);
+
+            var carrito = await _carritoRepository.GetByIdAsync(carritoId);
+            if (carrito == null)
+            {
+                throw new NotFoundException($"Carrito con id:{carritoId} no fue encontrado.");
+            }
+
+            var producto = await _productoRepository.GetByIdAsync(productoId);
+            if (producto == null )
+            {
+                throw new NotFoundException($"Producto con id:{productoId} no fue encontrado.");
+            }
+
+            var itemExistente = carrito.Items.FirstOrDefault(i => i.ProductoId == productoId);
+
+            if (itemExistente != null)
+            {
+                itemExistente.Cantidad += cantidad;
+            }
+            else
+            {
+                // Agregar nuevo item
+                var nuevoItem = new ItemCarrito
+                {
+                    CarritoId = carritoId,
+                    ProductoId = productoId,
+                    Cantidad = cantidad,
+                };
+                carrito.Items.Add(nuevoItem);
+            }
+
+
+            await _carritoRepository.UpdateAsync(carrito);
+            return CarritoDto.CreateCarrito(carrito);
         }
+
+        public async Task<CarritoDto> UpdateItemQuantity(int carritoId, int productoId, int nuevaCantidad)
+        {
+            if (nuevaCantidad <= 0)
+            {
+                throw new BadRequestException("La cantidad debe ser mayor a 0.");
+            }
+
+            var carrito = await _carritoRepository.GetByIdAsync(carritoId);
+            if (carrito == null)
+            {
+                throw new NotFoundException($"Carrito con id:{carritoId} no fue encontrado.");
+            }
+
+            var item = carrito.Items.FirstOrDefault(i => i.ProductoId == productoId);
+            if (item == null)
+            {
+                throw new NotFoundException($"Producto con id:{productoId} no está en el carrito.");
+            }
+
+            var producto = await _productoRepository.GetByIdAsync(productoId);
+            if (producto == null)
+            {
+                throw new NotFoundException($"Producto con id:{productoId} no fue encontrado.");
+            }
+
+            item.Cantidad = nuevaCantidad;
+
+            await _carritoRepository.UpdateAsync(carrito);
+            return CarritoDto.CreateCarrito(carrito);
+        }
+
+        public async Task<CarritoDto> RemoveItemFromCarrito(int carritoId, int productoId)
+        {
+            var carrito = await _carritoRepository.GetByIdAsync(carritoId);
+            if (carrito == null)
+            {
+                throw new NotFoundException($"Carrito con id:{carritoId} no fue encontrado.");
+            }
+
+            var item = carrito.Items.FirstOrDefault(i => i.ProductoId == productoId);
+            if (item == null)
+            {
+                throw new NotFoundException($"Producto con id:{productoId} no está en el carrito.");
+            }
+
+            carrito.Items.Remove(item);
+
+            await _carritoRepository.UpdateAsync(carrito);
+            return CarritoDto.CreateCarrito(carrito);
+        }
+
+        public async Task<CarritoDto> ClearCarrito(int carritoId)
+        {
+            var carrito = await _carritoRepository.GetByIdAsync(carritoId);
+            if (carrito == null)
+            {
+                throw new NotFoundException($"Carrito con id:{carritoId} no fue encontrado.");
+            }
+
+            carrito.Items.Clear();
+
+            await _carritoRepository.UpdateAsync(carrito);
+            return CarritoDto.CreateCarrito(carrito);
+        }
+
+
     }
 }

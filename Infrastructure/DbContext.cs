@@ -18,9 +18,7 @@ namespace Infrastructure
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Producto> Productos { get; set; }
         public DbSet<Carrito> Carrito { get; set; }
-
-        public DbSet<Categoria> Categorias  { get; set; }
-
+        public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<ItemCarrito> ItemsCarrito { get; set; }
         public DbSet<ItemPedido> ItemsPedido { get; set; }
@@ -33,47 +31,47 @@ namespace Infrastructure
             modelBuilder.Entity<Carrito>()
                 .HasOne(c => c.Usuario)
                 .WithMany(u => u.Carritos)
-                .HasForeignKey(c => c.Fk_id_usuario);
+                .HasForeignKey(c => c.UsuarioId);
 
             modelBuilder.Entity<Categoria>()
                 .HasMany(c => c.Productos)
                 .WithOne(p => p.Categoria)
-                .HasForeignKey(p => p.Fk_id_categoria);
+                .HasForeignKey(p => p.CategoriaId);
 
             modelBuilder.Entity<ItemCarrito>()
                 .HasOne(ic => ic.Carrito)
                 .WithMany(c => c.Items)
-                .HasForeignKey(ic => ic.Fk_id_carrito);
+                .HasForeignKey(ic => ic.CarritoId);
 
             modelBuilder.Entity<ItemPedido>()
                 .HasOne(ip => ip.Pedido)
                 .WithMany(p => p.ItemsPedido)
-                .HasForeignKey(ip => ip.Fk_id_pedido);
+                .HasForeignKey(ip => ip.PedidoId);
 
             modelBuilder.Entity<MetodoPago>()
                 .HasMany(mp => mp.Pagos)
                 .WithOne(p => p.MetodoPago)
-                .HasForeignKey(p => p.Fk_id_metodoPago);
+                .HasForeignKey(p => p.MetodoPagoId);
 
             modelBuilder.Entity<Pago>()
                 .HasOne(p => p.Pedido)
                 .WithMany(pe => pe.Pagos)
-                .HasForeignKey(p => p.Fk_id_pedido);
+                .HasForeignKey(p => p.PedidoId);
 
             modelBuilder.Entity<Pedido>()
                 .HasOne(p => p.Usuario)
                 .WithMany(u => u.Pedidos)
-                .HasForeignKey(p => p.Fk_id_usuario);
+                .HasForeignKey(p => p.UsuarioId);
             
             modelBuilder.Entity<Producto>()
                 .HasMany(p => p.ItemsCarrito)
                 .WithOne(ic => ic.Producto)
-                .HasForeignKey(ic => ic.Fk_id_producto);
+                .HasForeignKey(ic => ic.ProductoId);
 
             modelBuilder.Entity<Usuario>()
                 .HasMany(u => u.Carritos)
                 .WithOne(c => c.Usuario)
-                .HasForeignKey(c => c.Fk_id_usuario);
+                .HasForeignKey(c => c.UsuarioId);
         }
 
 

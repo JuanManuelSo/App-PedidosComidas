@@ -13,9 +13,12 @@ namespace Application.Interfaces
         Task<CarritoDto?> GetCarritoById(int id);
         Task<IEnumerable<CarritoDto>> GetAllCarritos();
         Task<CarritoDto> CreateCarrito(CreationCarritoDto creationCarritoDto);
-        Task UpdateCarrito(int id,CarritoDto carrito);
         Task DeleteCarrito(int id);
         Task <CarritoDto> GetCarritoByUsuarioId(int usuarioId);
 
+        //Metodos
+        Task<CarritoDto> AddItemToCarrito(int carritoId, int productoId, int cantidad);
+        Task<CarritoDto> UpdateItemQuantity(int carritoId, int productoId, int nuevaCantidad);
+        Task<CarritoDto> RemoveItemFromCarrito(int carritoId, int productoId);
     }
 }

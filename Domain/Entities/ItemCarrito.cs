@@ -8,7 +8,7 @@ namespace Domain.Entities
 {
     public class ItemCarrito
     {
-        public int Id_itemCarrito { get; set; }
+        public int Id { get; set; }
         public int CarritoId { get; set; }
         public int ProductoId { get; set; }
 

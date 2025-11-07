@@ -10,6 +10,5 @@ namespace Domain.Interfaces
     public interface IPedidoRepository : IRepositoryBase<Pedido>
     {
         Task<List<Pedido>> GetByUserIdAsync(int userId);
-        Task<List<Pedido>> GetByNombreAsync(int userId);
     }
 }

@@ -9,6 +9,6 @@ namespace Domain.Interfaces
 {
     public interface IPagoRepository : IRepositoryBase<Pago>
     {
-        Task<List<Pago>> GetPagosByUserId(int userId);
+        Task<List<Pago>> GetPagosByUserIdAsync(int userId);
     }
 }

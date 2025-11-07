@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    public interface IUserRepository : IRepositoryBase<Usuario>
+    public interface IMetodoPagoRepository : IRepositoryBase<MetodoPago>
     {
-        Task<Usuario> GetUserByPhoneAsync(string telefono);
-    }   
+        Task<MetodoPago?> GetMetodoPagoByUserIdAsync(int userId);
+    }
 }

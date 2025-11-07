@@ -74,7 +74,7 @@ namespace Application.Services
             {
                 throw new NotFoundException($"Usuario con id:{id} no fue encontrado.");
             }
-            await _usuarioRepository.DeleteAsync(existingUsuario);
+            await _usuarioRepository.DeleteAsync(existingUsuario); 
         }
     }
 }
