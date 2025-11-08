@@ -66,7 +66,7 @@ namespace Application.Services
             {
                 throw new NotFoundException($"Categoría con id:{id} no fue encontrada.");
             }
-            await _categoriaRepository.DeleteAsync(id);
+            await _categoriaRepository.DeleteAsync(existingCategory);
         }
     }
 }

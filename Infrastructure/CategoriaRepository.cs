@@ -9,12 +9,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
-    public class CategoriaRepository : ICategoryRepository
+    public class CategoriaRepository : RepositoryBase<Categoria>,ICategoryRepository
     {
         private readonly AppDbContext _dbContext;
-        public CategoriaRepository(AppDbContext context)
+        public CategoriaRepository(AppDbContext dbContext) : base(dbContext)
         {
-            _dbContext = context;
+            _dbContext = dbContext;
         }
         public async Task<Categoria?> GetByIdAsync(int id)
         {

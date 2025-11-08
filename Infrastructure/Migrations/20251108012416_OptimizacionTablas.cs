@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class OptimizacionTablas : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,7 +21,7 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nombre_categoria = table.Column<string>(type: "longtext", nullable: false)
+                    NombreCategoria = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -31,25 +31,20 @@ namespace Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "MetodosPago",
+                name: "MetodoPagos",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    usuarioID = table.Column<int>(type: "int", nullable: false),
-                    MetodoId = table.Column<int>(type: "int", nullable: false),
+                    UsuarioId = table.Column<int>(type: "int", nullable: false),
+                    TipoMetodo = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Detalles = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MetodosPago", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MetodosPago_MetodosPago_MetodoId",
-                        column: x => x.MetodoId,
-                        principalTable: "MetodosPago",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_MetodoPagos", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -99,19 +94,19 @@ namespace Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Carritos",
+                name: "Carrito",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    usuarioId = table.Column<int>(type: "int", nullable: false)
+                    UsuarioId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Carritos", x => x.Id);
+                    table.PrimaryKey("PK_Carrito", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Carritos_Usuarios_usuarioId",
-                        column: x => x.usuarioId,
+                        name: "FK_Carrito_Usuarios_UsuarioId",
+                        column: x => x.UsuarioId,
                         principalTable: "Usuarios",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -124,20 +119,20 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    usuarioId = table.Column<int>(type: "int", nullable: false),
+                    UsuarioId = table.Column<int>(type: "int", nullable: false),
                     Direccion = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     TiempoEstimado = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    PreciotTotal = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    PrecioTotal = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     EstadoPedido = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pedidos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Pedidos_Usuarios_usuarioId",
-                        column: x => x.usuarioId,
+                        name: "FK_Pedidos_Usuarios_UsuarioId",
+                        column: x => x.UsuarioId,
                         principalTable: "Usuarios",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -150,22 +145,22 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    carritoId = table.Column<int>(type: "int", nullable: false),
-                    productoId = table.Column<int>(type: "int", nullable: false),
+                    CarritoId = table.Column<int>(type: "int", nullable: false),
+                    ProductoId = table.Column<int>(type: "int", nullable: false),
                     Cantidad = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ItemsCarrito", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ItemsCarrito_Carritos_carritoId",
-                        column: x => x.carritoId,
-                        principalTable: "Carritos",
+                        name: "FK_ItemsCarrito_Carrito_CarritoId",
+                        column: x => x.CarritoId,
+                        principalTable: "Carrito",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ItemsCarrito_Productos_productoId",
-                        column: x => x.productoId,
+                        name: "FK_ItemsCarrito_Productos_ProductoId",
+                        column: x => x.ProductoId,
                         principalTable: "Productos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -178,23 +173,23 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    pedidoId = table.Column<int>(type: "int", nullable: false),
-                    productoId = table.Column<int>(type: "int", nullable: false),
+                    PedidoId = table.Column<int>(type: "int", nullable: false),
+                    ProductoId = table.Column<int>(type: "int", nullable: false),
                     Cantidad = table.Column<int>(type: "int", nullable: false),
-                    Precio_unitario = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
+                    PrecioUnitario = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ItemsPedido", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ItemsPedido_Pedidos_pedidoId",
-                        column: x => x.pedidoId,
+                        name: "FK_ItemsPedido_Pedidos_PedidoId",
+                        column: x => x.PedidoId,
                         principalTable: "Pedidos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ItemsPedido_Productos_productoId",
-                        column: x => x.productoId,
+                        name: "FK_ItemsPedido_Productos_ProductoId",
+                        column: x => x.ProductoId,
                         principalTable: "Productos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -207,23 +202,23 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    pedidoId = table.Column<int>(type: "int", nullable: false),
-                    metodoPagoId = table.Column<int>(type: "int", nullable: false),
+                    PedidoId = table.Column<int>(type: "int", nullable: false),
+                    MetodoPagoId = table.Column<int>(type: "int", nullable: false),
                     Fecha = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    estado_pago = table.Column<int>(type: "int", nullable: false)
+                    EstadoPago = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pagos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Pagos_MetodosPago_metodoPagoId",
-                        column: x => x.metodoPagoId,
-                        principalTable: "MetodosPago",
+                        name: "FK_Pagos_MetodoPagos_MetodoPagoId",
+                        column: x => x.MetodoPagoId,
+                        principalTable: "MetodoPagos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Pagos_Pedidos_pedidoId",
-                        column: x => x.pedidoId,
+                        name: "FK_Pagos_Pedidos_PedidoId",
+                        column: x => x.PedidoId,
                         principalTable: "Pedidos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -231,49 +226,44 @@ namespace Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Carritos_usuarioId",
-                table: "Carritos",
-                column: "usuarioId");
+                name: "IX_Carrito_UsuarioId",
+                table: "Carrito",
+                column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ItemsCarrito_carritoId",
+                name: "IX_ItemsCarrito_CarritoId",
                 table: "ItemsCarrito",
-                column: "carritoId");
+                column: "CarritoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ItemsCarrito_productoId",
+                name: "IX_ItemsCarrito_ProductoId",
                 table: "ItemsCarrito",
-                column: "productoId");
+                column: "ProductoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ItemsPedido_pedidoId",
+                name: "IX_ItemsPedido_PedidoId",
                 table: "ItemsPedido",
-                column: "pedidoId");
+                column: "PedidoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ItemsPedido_productoId",
+                name: "IX_ItemsPedido_ProductoId",
                 table: "ItemsPedido",
-                column: "productoId");
+                column: "ProductoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MetodosPago_MetodoId",
-                table: "MetodosPago",
-                column: "MetodoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pagos_metodoPagoId",
+                name: "IX_Pagos_MetodoPagoId",
                 table: "Pagos",
-                column: "metodoPagoId");
+                column: "MetodoPagoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pagos_pedidoId",
+                name: "IX_Pagos_PedidoId",
                 table: "Pagos",
-                column: "pedidoId");
+                column: "PedidoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pedidos_usuarioId",
+                name: "IX_Pedidos_UsuarioId",
                 table: "Pedidos",
-                column: "usuarioId");
+                column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Productos_CategoriaId",
@@ -294,13 +284,13 @@ namespace Infrastructure.Migrations
                 name: "Pagos");
 
             migrationBuilder.DropTable(
-                name: "Carritos");
+                name: "Carrito");
 
             migrationBuilder.DropTable(
                 name: "Productos");
 
             migrationBuilder.DropTable(
-                name: "MetodosPago");
+                name: "MetodoPagos");
 
             migrationBuilder.DropTable(
                 name: "Pedidos");

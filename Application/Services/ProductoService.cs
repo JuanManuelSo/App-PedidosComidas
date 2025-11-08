@@ -135,7 +135,7 @@ namespace Application.Services
             {
                 throw new NotFoundException($"Producto con id:{id} no fue encontrado.");
             }
-            await _productoRepository.DeleteAsync(id); //CHEQUEAR
+            await _productoRepository.DeleteAsync(existingProducto);
         }
         public async Task<ProductoDto> GetProductoByName(string? nombre)
         {

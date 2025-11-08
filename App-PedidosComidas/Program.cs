@@ -6,6 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// HttpClient Factory para servicios externos
+builder.Services.AddHttpClient("ExchangeRateAPI", client =>
+{
+    client.BaseAddress = new Uri("https://open.er-api.com/v6/");
+    client.Timeout = TimeSpan.FromSeconds(30);
+});
+
 // Add services to the container.
 builder.Services.AddControllers();
 
@@ -27,6 +34,7 @@ builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 builder.Services.AddScoped<IPedidoService, PedidoService>();
 builder.Services.AddScoped<IProductoService, ProductoService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<ICurrencyService, CurrencyService>();
 
 
 

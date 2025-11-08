@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks
+using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -10,10 +10,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
-    public class ProductoRepository : IProductoRepository
+    public class ProductoRepository : RepositoryBase<Producto>, IProductoRepository
     {
         private readonly AppDbContext _dbContext;
-        public ProductoRepository(AppDbContext dbContext)
+        public ProductoRepository(AppDbContext dbContext) : base(dbContext)
         {
             _dbContext = dbContext;
         }

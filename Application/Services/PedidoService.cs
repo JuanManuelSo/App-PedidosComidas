@@ -128,7 +128,7 @@ namespace Application.Services
             if (pedido.EstadoPedido == EstadoPedido.Entregado ||
                 pedido.EstadoPedido == EstadoPedido.Cancelado)
             {
-                await _pedidoRepository.DeleteAsync(id);
+                await _pedidoRepository.DeleteAsync(pedido);
             }
             else
             {

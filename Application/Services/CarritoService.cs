@@ -29,14 +29,14 @@ namespace Application.Services
         }
 
 
-        public async Task<CarritoDto> GetCarritoByUsuarioId(int usuarioId)
+        public async Task<CarritoDto?> GetCarritoByUsuarioId(int usuarioId)
         {
             var carrito = await _carritoRepository.GetByUserIdAsync(usuarioId);
             if (carrito == null)
             {
                 throw new NotFoundException($"Carrito para el usuario con id:{usuarioId} no fue encontrado.");
             }
-            return CarritoDto.CreateCarrito(carrito); 
+            return CarritoDto.CreateCarrito(carrito);
         }
 
         public async Task<CarritoDto> CreateCarrito(CreationCarritoDto creationCarritoDto)

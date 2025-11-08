@@ -7,15 +7,16 @@ using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Infrastructure
 {
-    public class PagoRepository : IPagoRepository
+    public class PagoRepository : RepositoryBase<Pago>, IPagoRepository
     {
         private readonly AppDbContext _dbContext;
 
-        public PagoRepository(AppDbContext context)
+        public PagoRepository(AppDbContext dbContext) : base(dbContext)
         {
-            _dbContext = context;
+            _dbContext = dbContext;
         }
 
         public async Task<Pago> CreateAsync(Pago entity)

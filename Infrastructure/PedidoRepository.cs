@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Infrastructure
 {
-    public class PedidoRepository : IPedidoRepository
+    public class PedidoRepository : RepositoryBase<Pedido>, IPedidoRepository
     {
         private readonly AppDbContext _dbContext;
-        public PedidoRepository(AppDbContext dbContext)
+        public PedidoRepository(AppDbContext dbContext) : base(dbContext)
         {
             _dbContext = dbContext;
         }

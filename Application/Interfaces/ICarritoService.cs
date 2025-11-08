@@ -14,7 +14,7 @@ namespace Application.Interfaces
         Task<IEnumerable<CarritoDto>> GetAllCarritos();
         Task<CarritoDto> CreateCarrito(CreationCarritoDto creationCarritoDto);
         Task DeleteCarrito(int id);
-        Task <CarritoDto> GetCarritoByUsuarioId(int usuarioId);
+        Task <CarritoDto?> GetCarritoByUsuarioId(int usuarioId);
 
         //Metodos
         Task<CarritoDto> AddItemToCarrito(int carritoId, int productoId, int cantidad);
