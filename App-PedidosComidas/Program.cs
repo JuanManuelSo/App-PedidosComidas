@@ -24,6 +24,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Repositories
 builder.Services.AddScoped<ICarritoRepository, CarritoRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoriaRepository>();
+builder.Services.AddScoped<IPagoRepository, PagoRepository>();
 builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -35,6 +36,7 @@ builder.Services.AddScoped<IPedidoService, PedidoService>();
 builder.Services.AddScoped<IProductoService, ProductoService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<ICurrencyService, CurrencyService>();
+builder.Services.AddScoped<IPagoService, PagoService>();
 
 
 
