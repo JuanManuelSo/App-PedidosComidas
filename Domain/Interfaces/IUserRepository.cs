@@ -1,14 +1,15 @@
 ﻿using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    public interface IUserRepository : IRepositoryBase<Usuario>
+    public interface IUserRepository
     {
-        Task<Usuario> GetUserByPhoneAsync(string telefono);
-    }   
+        Usuario? GetByNombre(string nombre);
+        List<Usuario> GetAll();
+        Usuario? GetById(int id);
+        void Create(Usuario usuario);
+        void Update(Usuario usuario);
+        void Delete(Usuario usuario);
+        void Save();
+    }
 }

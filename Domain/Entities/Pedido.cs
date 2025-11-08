@@ -11,6 +11,7 @@ namespace Domain.Entities
     {
         public int Id { get; set; }
         public int UsuarioId { get; set; }
+
         public string Direccion { get; set; }
         public string TiempoEstimado { get; set; }
         public decimal PrecioTotal { get; set; }
