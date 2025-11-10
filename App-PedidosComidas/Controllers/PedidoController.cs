@@ -61,7 +61,7 @@ namespace App_PedidosComidas.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("estado/{estado}")]
         public async Task<IActionResult> GetPedidosByEstado([FromQuery] Domain.Enum.EstadoPedido estado)
         {
             try
