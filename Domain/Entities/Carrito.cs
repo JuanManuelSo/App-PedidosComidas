@@ -11,7 +11,6 @@ namespace Domain.Entities
         public int Id { get; set; }
         public int UsuarioId { get; set; }
 
-
         // Relaciones
         public Usuario Usuario { get; set; } 
         public ICollection<ItemCarrito> Items { get; set; } = new List<ItemCarrito>();

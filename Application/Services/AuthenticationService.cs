@@ -1,52 +1,33 @@
-﻿using Application.Interfaces;
-using Domain.DTOs;
-using Domain.Entities;
-using Domain.Interfaces;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using Application.Interfaces;
+using Domain.Interfaces;
+using Application.Models;
+using Microsoft.AspNetCore.Mvc;
+using Domain.Entities;
+using Domain.DTOs;
+using Application.Interfaces;
 
 namespace Application.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IConfiguration _config;
+        private readonly IUserRepository _authenticationRepository;
 
-        public AuthenticationService(IUserRepository userRepository, IConfiguration config)
+        public AuthenticationService(IUserRepository authenticationRepository)
         {
-            _userRepository = userRepository;
-            _config = config;
+            _authenticationRepository = authenticationRepository;
         }
 
-        public string? Authenticate(CredentialsDtoRequest credentials)
+
+        public Usuario Authenticate(CredentialsDtoRequest credentials)
         {
-            var user = _userRepository.GetByNombre(credentials.Nombre);
-
-            if (user == null || !BCrypt.Net.BCrypt.Verify(credentials.Password, user.Contraseña))
-                return null;
-
-            var claims = new[]
-            {
-                new Claim("sub", user.Id.ToString()),
-                new Claim("role", user.Rol.ToString()),
-                new Claim("name", user.Nombre)
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Authentication:SecretForKey"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: _config["Authentication:Issuer"],
-                audience: _config["Authentication:Audience"],
-                claims: claims,
-                expires: DateTime.UtcNow.AddHours(1),
-                signingCredentials: creds
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            var user = _authenticationRepository.AuthenticateRepository(credentials);
+            
+            return user;
         }
     }
 }
