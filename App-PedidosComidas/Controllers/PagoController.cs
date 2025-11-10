@@ -4,6 +4,7 @@ using Application.Models;
 using Application.Models.Request;
 using Domain.Exceptions;
 
+
 namespace App_PedidosComidas.Controllers
 {
     [ApiController]
@@ -43,7 +44,7 @@ namespace App_PedidosComidas.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetPagoById(int id)
         {
             try

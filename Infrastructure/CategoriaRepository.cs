@@ -7,6 +7,7 @@ using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Infrastructure
 {
     public class CategoriaRepository : RepositoryBase<Categoria>,ICategoryRepository

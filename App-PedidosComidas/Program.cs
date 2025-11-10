@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using Application.Services;
 using Domain.Interfaces;
+<<<<<<< HEAD
 using Infrastructure;
 =======
 ﻿using Domain.Interfaces;
@@ -16,6 +17,11 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 
+=======
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using Infrastructure;
+>>>>>>> 89d656fc0c934eed403842f9bb792d4b25b28a51
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +32,6 @@ builder.Services.AddHttpClient("ExchangeRateAPI", client =>
     client.BaseAddress = new Uri("https://open.er-api.com/v6/");
     client.Timeout = TimeSpan.FromSeconds(30);
 });
-
 // Add services to the container.
 =======
 
@@ -71,6 +76,7 @@ builder.Services.AddScoped<IPagoRepository, PagoRepository>();
 builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IMetodoPagoRepository, MetodoPagoRepository>();
 
 // Services
 builder.Services.AddScoped<ICarritoService, CarritoService>();
