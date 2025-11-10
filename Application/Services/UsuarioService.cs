@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Application.Models;
 using Application.Models.Request;
+using Domain.DTOs;
 using Domain.Entities;
 using Domain.Exceptions;
 using Domain.Interfaces;
@@ -12,13 +13,22 @@ using System.Threading.Tasks;
 
 namespace Application.Services
 {
-    public class UsuarioService : IUsuarioService
+    public class UsuarioService : IUsuarioService, IAuthenticationService
     {
         private readonly IUserRepository _usuarioRepository;
+
         public UsuarioService(IUserRepository usuarioRepository)
         {
             _usuarioRepository = usuarioRepository;
         }
+
+        public Usuario AuthenticateRepository(CredentialsDtoRequest credentials)
+        {
+            var user = _usuarioRepository.AuthenticateRepository(credentials);
+
+            return user;
+        }
+
         public async Task<UsuarioDto?> GetUsuarioById(int id)
         {
             var usuario = await _usuarioRepository.GetByIdAsync(id);
@@ -31,10 +41,12 @@ namespace Application.Services
             return UsuarioDto.CreateUser(usuario);
         }
 
-        public async Task<IEnumerable<UsuarioDto>> GetAllUsuarios()
+        public List<UsuarioDto> GetAllUsuarios()
         {
-            var usuarios = await _usuarioRepository.GetAllAsync();
-            return UsuarioDto.CreateList(usuarios);
+            var usuarios = _usuarioRepository.GetAllAsync();
+            var usuariosList = usuarios.Result.ToList();
+
+            return UsuarioDto.CreateList(usuariosList);
         }
 
         public async Task<UsuarioDto> CreateUsuario(CreationUserDto creationuserDto)
@@ -74,7 +86,7 @@ namespace Application.Services
             {
                 throw new NotFoundException($"Usuario con id:{id} no fue encontrado.");
             }
-            await _usuarioRepository.DeleteAsync(existingUsuario); 
+            await _usuarioRepository.DeleteAsync(existingUsuario.Id); 
         }
     }
 }

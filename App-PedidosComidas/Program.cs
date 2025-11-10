@@ -1,55 +1,34 @@
-<<<<<<< HEAD
+
 using Application.Interfaces;
 using Application.Services;
-using Domain.Interfaces;
-<<<<<<< HEAD
-using Infrastructure;
-=======
 ﻿using Domain.Interfaces;
-using Infrastructure;
-using Infrastructure.Data;
-using Application.Interfaces;        
-using Application.Services;          
->>>>>>> abc0669 (termine de corregir todos los errores de la autenticacion)
+using Infrastructure;                
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;  
 using Microsoft.IdentityModel.Tokens;                
+using Microsoft.OpenApi.Models;
 using System.Text;
 
 
-=======
-using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
-using Infrastructure;
->>>>>>> 89d656fc0c934eed403842f9bb792d4b25b28a51
 
 var builder = WebApplication.CreateBuilder(args);
 
-<<<<<<< HEAD
-// HttpClient Factory para servicios externos
 builder.Services.AddHttpClient("ExchangeRateAPI", client =>
 {
     client.BaseAddress = new Uri("https://open.er-api.com/v6/");
     client.Timeout = TimeSpan.FromSeconds(30);
 });
-// Add services to the container.
-=======
 
->>>>>>> abc0669 (termine de corregir todos los errores de la autenticacion)
+
+
 builder.Services.AddControllers();
 
 
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
-<<<<<<< HEAD
+
 builder.Services.AddDbContext<AppDbContext>(options =>
    options.UseMySql(connectionString,ServerVersion.AutoDetect(connectionString)));
-=======
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-   options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-
-
-builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
 
 var secretKey = builder.Configuration["Authentication:SecretForKey"];
@@ -67,7 +46,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey))
         };
     });
->>>>>>> abc0669 (termine de corregir todos los errores de la autenticacion)
 
 // Repositories
 builder.Services.AddScoped<ICarritoRepository, CarritoRepository>();
@@ -86,6 +64,7 @@ builder.Services.AddScoped<IProductoService, ProductoService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<ICurrencyService, CurrencyService>();
 builder.Services.AddScoped<IPagoService, PagoService>();
+builder.Services.AddScoped<IAuthenticationService, UsuarioService>();
 
 
 

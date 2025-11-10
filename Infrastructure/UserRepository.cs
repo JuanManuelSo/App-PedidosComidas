@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Domain.DTOs;
+using Domain.Entities;
+using Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Entities;
-using Domain.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
@@ -17,7 +19,7 @@ namespace Infrastructure
             _dbContext = dbContext;
         }
 
-        public async Task<List<Usuario>> GetAllAsync()
+        public async Task<IEnumerable<Usuario>> GetAllAsync()
         {
             return await _dbContext.Usuarios
                 .Include(u => u.Pedidos)
@@ -25,7 +27,7 @@ namespace Infrastructure
                 .ToListAsync();
         }
 
-        public async Task<Usuario> GetByIdAsync(int id)
+        public async Task<Usuario?> GetByIdAsync(int id)
         {
             return await _dbContext.Usuarios
                 .Include(u => u.Pedidos)
@@ -53,9 +55,14 @@ namespace Infrastructure
                 .FirstOrDefaultAsync(u => u.Telefono == telefono);
         }
 
-        public async Task DeleteAsync(Usuario entity)
+        public async Task DeleteAsync(int id)
         {
-            _dbContext.Usuarios.Remove(entity);
+            var usuario = await _dbContext.Usuarios.FindAsync(id);
+            if (usuario == null)
+            {
+                return;
+            }
+            _dbContext.Usuarios.Remove(usuario);
             await _dbContext.SaveChangesAsync();
         }
     }

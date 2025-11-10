@@ -1,15 +1,14 @@
 ﻿using Domain.Entities;
-
+using Domain.DTOs;
 namespace Domain.Interfaces
 {
     public interface IUserRepository
     {
-        Usuario? GetByNombre(string nombre);
-        List<Usuario> GetAll();
-        Usuario? GetById(int id);
-        void Create(Usuario usuario);
-        void Update(Usuario usuario);
-        void Delete(Usuario usuario);
-        void Save();
+        Task<Usuario?> GetByIdAsync(int id);
+        Task<IEnumerable<Usuario>> GetAllAsync();
+        Task<Usuario> CreateAsync(Usuario user);
+        Task UpdateAsync(Usuario user);
+        Task DeleteAsync(int id);
+        Usuario AuthenticateRepository(CredentialsDtoRequest credentials);
     }
 }
