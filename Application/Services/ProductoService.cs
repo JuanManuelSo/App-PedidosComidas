@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Services;
 using Application.Models;
 using Application.Models.Request;
 using Domain.Entities;
@@ -20,21 +21,28 @@ namespace Application.Services
         // Inyeccion de dependencias
         private readonly IProductoRepository _productoRepository;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly ICurrencyService _currencyService;
 
-        public ProductoService(IProductoRepository productoRepository, ICategoryRepository categoryRepository)
+        public ProductoService(IProductoRepository productoRepository, ICategoryRepository categoryRepository, ICurrencyService currencyService)
         {
             _productoRepository = productoRepository;
             _categoryRepository = categoryRepository;
+            _currencyService = currencyService;
         }
 
-        public async Task<ProductoDto> GetProductoById(int id)
+        public async Task<ProductoDto> GetProductoById(int id, string? currency = null)
         {
             var producto = await _productoRepository.GetByIdAsync(id);
             if (producto == null)
             {
                 throw new NotFoundException($"Producto con id:{id} no fue encontrado.");
             }
-            return ProductoDto.CreateProducto(producto);
+
+            var productoDto = ProductoDto.CreateProducto(producto);
+
+            await ApplyConversionToProducto(productoDto, currency);
+            
+            return productoDto;
         }
 
         public async Task<IEnumerable<ProductoDto>> GetAllProductos(int? categoryId, string? Nombre)
@@ -82,7 +90,7 @@ namespace Application.Services
                 throw new NotFoundException($"No se encontró ningún producto en la categoría {categoryId}");
             }
 
-           
+
         }
         public async Task<ProductoDto> CreateProducto(CreationProductoDto creationProductoDto)
         {
@@ -97,7 +105,7 @@ namespace Application.Services
             {
                 throw new ValidationException("El precio del producto debe ser mayor a cero");
             }
-            
+
             var newProducto = new Producto();
 
             newProducto.Nombre = creationProductoDto.Nombre;
@@ -137,7 +145,7 @@ namespace Application.Services
             }
             await _productoRepository.DeleteAsync(existingProducto);
         }
-        public async Task<ProductoDto> GetProductoByName(string? nombre)
+        public async Task<ProductoDto> GetProductoByName(string? nombre, string? currency)
         {
             if (string.IsNullOrWhiteSpace(nombre))
             {
@@ -151,8 +159,37 @@ namespace Application.Services
             {
                 throw new NotFoundException($"Producto con nombre: {nombre.Trim()} no fue encontrado.");
             }
+            var productoDto = ProductoDto.CreateProducto(producto);
 
-            return ProductoDto.CreateProducto(producto);
+            await ApplyConversionToProducto(productoDto, currency);
+
+            return productoDto;
         }
+
+        
+        private async Task ApplyConversionToProducto(ProductoDto producto, string? currency)
+        {
+            if (!string.IsNullOrEmpty(currency) && currency.ToUpper() != "ARS")
+            {
+                try
+                {
+                    decimal exchangeRate = await _currencyService.GetExchangeRate("ARS", currency.ToUpper());
+                    producto.PrecioConvertido = Math.Round(producto.Precio * exchangeRate, 2);
+                    producto.Moneda = currency.ToUpper();
+                }
+                catch
+                {
+                    // Si falla la conversión, mantener ARS
+                    producto.Moneda = "ARS";
+                }
+            }
+            else
+            {
+                producto.Moneda = "ARS";
+            }
+        }
+
+       
     }
 }
+

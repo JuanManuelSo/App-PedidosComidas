@@ -10,12 +10,12 @@ namespace Application.Interfaces
 {
     public interface IProductoService
     {
-        Task<ProductoDto> GetProductoById(int id);
+        Task<ProductoDto> GetProductoById(int id, string? currency = null);
         Task<IEnumerable<ProductoDto>> GetAllProductos(int? categoryId, string? Nombre);
         Task<ProductoDto> CreateProducto(CreationProductoDto creationProductoDto);
         Task UpdateProducto(int id, CreationProductoDto creationProductoDto);
         Task DeleteProducto(int id);
 
-        Task<ProductoDto> GetProductoByName(string? nombre);
+        Task<ProductoDto> GetProductoByName(string? nombre, string? currency = null);
     }
 }

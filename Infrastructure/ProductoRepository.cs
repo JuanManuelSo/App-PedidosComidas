@@ -17,34 +17,7 @@ namespace Infrastructure
         {
             _dbContext = dbContext;
         }
-        public async Task<List<Producto>> GetAllAsync()
-        {
-            return await _dbContext.Productos
-                .Include(p => p.Categoria)
-                .ToListAsync();
-        }
-        public async Task<Producto> GetByIdAsync(int id)
-        {
-            return await _dbContext.Productos
-                .Include(p => p.Categoria)
-                .FirstOrDefaultAsync(p => p.Id == id);
-        }
-        public async Task<Producto> CreateAsync(Producto entity)
-        {
-            await _dbContext.Productos.AddAsync(entity);
-            await _dbContext.SaveChangesAsync();
-            return entity;
-        }
-        public async Task UpdateAsync(Producto entity)
-        {
-            _dbContext.Productos.Update(entity);
-            await _dbContext.SaveChangesAsync();
-        }
-        public async Task DeleteAsync(Producto entity)
-        {
-            _dbContext.Productos.Remove(entity);
-            await _dbContext.SaveChangesAsync();
-        }
+        
 
         public async Task<List<Producto>> GetByNombreAsync(string? Nombre)
         {

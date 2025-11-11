@@ -9,6 +9,6 @@ namespace Domain.Interfaces
 {
     public interface IUserRepository : IRepositoryBase<Usuario>
     {
-        Task<Usuario> GetUserByPhoneAsync(string telefono);
+        Task<Usuario?> GetUserByPhoneAsync(string telefono);
     }   
 }

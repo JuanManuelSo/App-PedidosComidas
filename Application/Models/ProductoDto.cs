@@ -14,6 +14,10 @@ namespace Application.Models
         public decimal Precio { get; set; }
         public int CategoriaId { get; set; }
 
+        // Nuevas propiedades para conversión de moneda
+        public decimal? PrecioConvertido { get; set; }
+        public string Moneda { get; set; } = "ARS";
+
         public static ProductoDto CreateProducto(Producto producto)
         {
             var dto = new ProductoDto();

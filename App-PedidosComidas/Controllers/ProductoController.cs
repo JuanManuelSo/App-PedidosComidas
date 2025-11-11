@@ -33,7 +33,7 @@ namespace App_PedidosComidas.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProductoById(int id)
+        public async Task<IActionResult> GetProductoById(int id, [FromQuery] string? currency)
         {
             try
             {

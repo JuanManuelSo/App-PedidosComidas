@@ -28,46 +28,6 @@ namespace Infrastructure
                 .Include(p => p.PrecioTotal)
                 .ToListAsync();
         }
-        
-        public async Task<Pedido> GetByIdAsync(int id)
-        {
-            return await _dbContext.Pedidos
-                .Include(p => p.Usuario)
-                .Include(p => p.Direccion)
-                .Include(p => p.TiempoEstimado)
-                .Include(p => p.PrecioTotal)
-                .FirstOrDefaultAsync(p => p.Id == id);
-        }
-
-        public async Task<List<Pedido>> GetAllAsync()
-        {
-            return await _dbContext.Pedidos
-                .Include(p => p.Usuario)
-                .Include(p => p.Direccion)
-                .Include(p => p.TiempoEstimado)
-                .Include(p => p.PrecioTotal)
-                .ToListAsync();
-        }
-
-        public async Task<Pedido> CreateAsync(Pedido entity)
-        {
-            await _dbContext.Pedidos.AddAsync(entity);
-            await _dbContext.SaveChangesAsync();
-            return entity;
-        }
-
-        public async Task UpdateAsync(Pedido entity)
-        {
-            _dbContext.Pedidos.Update(entity);
-            await _dbContext.SaveChangesAsync();
-        }
-
-        public async Task DeleteAsync(Pedido entity)
-        {
-            _dbContext.Pedidos.Remove(entity);
-            await _dbContext.SaveChangesAsync();
-        }
-
-       
+                
     }
 }

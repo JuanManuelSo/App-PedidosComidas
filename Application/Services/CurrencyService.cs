@@ -30,7 +30,7 @@ namespace Application.Services
 
             try
             {
-                // Usando exchangerate-api.com (gratis, sin necesidad de API key)
+                // Usando exchangerate-api.com 
                 var response = await client.GetAsync($"https://open.er-api.com/v6/latest/{fromCurrency}");
                 response.EnsureSuccessStatusCode();
 
