@@ -24,8 +24,8 @@ namespace Infrastructure
                 .Where(p => p.UsuarioId == userId)
                 .Include(p => p.Usuario)
                 .Include(p => p.Direccion)
-                .Include(p => p.TiempoEstimado)
-                .Include(p => p.PrecioTotal)
+                .Include(p => p.ItemsPedido)          
+                .ThenInclude(ip => ip.Producto)  
                 .ToListAsync();
         }
                 
