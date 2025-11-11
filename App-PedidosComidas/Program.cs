@@ -64,7 +64,7 @@ builder.Services.AddScoped<IProductoService, ProductoService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<ICurrencyService, CurrencyService>();
 builder.Services.AddScoped<IPagoService, PagoService>();
-builder.Services.AddScoped<IAuthenticationService, UsuarioService>();
+
 
 
 

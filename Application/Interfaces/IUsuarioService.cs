@@ -17,6 +17,6 @@ namespace Application.Interfaces
         Task<UsuarioDto> CreateUsuario(CreationUserDto creationuserDto);
         Task UpdateUsuario(int id, CreationUserDto creationuserDto);
         Task DeleteUsuario(int id);
-        Usuario AuthenticateRepository(CredentialsDtoRequest credentials);
+        string? AuthenticateRepository(CredentialsDtoRequest credentials);
     }
 }

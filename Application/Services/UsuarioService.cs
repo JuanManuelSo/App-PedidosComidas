@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Application.Services
 {
-    public class UsuarioService : IUsuarioService, IAuthenticationService
+    public class UsuarioService : IUsuarioService
     {
         private readonly IUserRepository _usuarioRepository;
 
@@ -22,7 +22,7 @@ namespace Application.Services
             _usuarioRepository = usuarioRepository;
         }
 
-        public Usuario AuthenticateRepository(CredentialsDtoRequest credentials)
+        public string? AuthenticateRepository(CredentialsDtoRequest credentials)
         {
             var user = _usuarioRepository.AuthenticateRepository(credentials);
 
