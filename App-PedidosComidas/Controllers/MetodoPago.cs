@@ -56,9 +56,6 @@ namespace App_PedidosComidas.Controllers
                 var created = await _metodoPagoRepository.CreateAsync(metodoPago);
                 return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
             }
-
-            
-
            
         }
     
