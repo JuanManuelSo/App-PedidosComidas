@@ -19,6 +19,7 @@ namespace Application.Services
         {
             _usuarioRepository = usuarioRepository;
         }
+
         public async Task<UsuarioDto?> GetUsuarioById(int id)
         {
             var usuario = await _usuarioRepository.GetByIdAsync(id);

@@ -27,6 +27,13 @@ namespace Infrastructure
                 .ToListAsync();
         }
 
-
+        public async Task<List<Pago>> GetPagosByPedidoIdAsync(int pedidoId)
+        {
+            return await _dbContext.Pagos
+        .Include(p => p.MetodoPago)
+        .Include(p => p.Pedido)
+       .Where(p => p.PedidoId == pedidoId)
+       .ToListAsync();
+        }
     }
 }

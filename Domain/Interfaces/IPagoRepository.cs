@@ -10,5 +10,6 @@ namespace Domain.Interfaces
     public interface IPagoRepository : IRepositoryBase<Pago>
     {
         Task<List<Pago>> GetPagosByUserIdAsync(int userId);
+        Task<List<Pago>> GetPagosByPedidoIdAsync(int pedidoId);
     }
 }

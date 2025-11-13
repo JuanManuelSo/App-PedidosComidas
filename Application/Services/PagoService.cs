@@ -44,9 +44,9 @@ namespace Application.Services
 
             public async Task<IEnumerable<PagoDto>> GetPagosByPedidoId(int pedidoId)
             {
-                var pagos = await _pagoRepository.GetByIdAsync(pedidoId);
-                return PagoDto.CreateList(new List<Pago> { pagos });
-        }
+                var pagos = await _pagoRepository.GetPagosByPedidoIdAsync(pedidoId);
+                return PagoDto.CreateList(pagos.ToList());
+            }
 
             public async Task<IEnumerable<PagoDto>> GetPagosByUsuarioId(int usuarioId)
             {

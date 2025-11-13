@@ -30,6 +30,12 @@ namespace Application.Models.Request
         public int Cantidad { get; set; }
     }
 
+    public class CheckoutRequest
+    {
+        public int CarritoId { get; set; }
+        public string DireccionEntrega { get; set; } = string.Empty;
+    }
+
     // DTO para actualizar el estado del pedido
     public class UpdateEstadoPedidoDto
     {

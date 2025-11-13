@@ -18,14 +18,17 @@ namespace Application.Services
         private readonly IPedidoRepository _pedidoRepository;
         private readonly IProductoRepository _productoRepository;
         private readonly IUserRepository _usuarioRepository;
+        private readonly ICarritoRepository _carritoRepository;
         public PedidoService(
             IPedidoRepository pedidoRepository,
             IProductoRepository productoRepository,
-            IUserRepository usuarioRepository)
+            IUserRepository usuarioRepository,
+            ICarritoRepository carritoRepository)
         {
             _pedidoRepository = pedidoRepository;
             _productoRepository = productoRepository;
             _usuarioRepository = usuarioRepository;
+            _carritoRepository = carritoRepository;
         }
 
         public async Task<PedidoDto> GetPedidoById(int id)
@@ -135,6 +138,81 @@ namespace Application.Services
                 throw new InvalidOperationException(
                     "Solo se pueden eliminar pedidos Entregados o Cancelados.");
             }
+        }
+
+        public async Task<PedidoDto> CreatePedidoFromCarrito(int carritoId, string direccionEntrega)
+        {
+            // 1. Obtener el carrito
+            var carrito = await _carritoRepository.GetByIdAsync(carritoId);
+            Console.WriteLine($"Carrito encontrado: {carrito != null}");
+            Console.WriteLine($"Items count: {carrito?.Items?.Count ?? 0}");
+            if (carrito == null)
+            {
+                throw new NotFoundException($"Carrito con id:{carritoId} no fue encontrado.");
+            }
+
+            // 2. Validar que el carrito tenga items
+            if (carrito.Items == null || !carrito.Items.Any())
+            {
+                throw new BadRequestException("El carrito está vacío. No se puede crear un pedido.");
+            }
+
+            // 3. Validar que el usuario existe
+            var usuario = await _usuarioRepository.GetByIdAsync(carrito.UsuarioId);
+            if (usuario == null)
+            {
+                throw new NotFoundException($"Usuario con id:{carrito.UsuarioId} no fue encontrado.");
+            }
+
+            // 4. Crear los items del pedido y calcular precio total
+            decimal precioTotal = 0;
+            var itemsPedido = new List<ItemPedido>();
+
+            foreach (var itemCarrito in carrito.Items)
+            {
+                // Verificar que el producto aún existe
+                var producto = await _productoRepository.GetByIdAsync(itemCarrito.ProductoId);
+                if (producto == null)
+                {
+                    throw new NotFoundException($"Producto con id:{itemCarrito.ProductoId} no existe.");
+                }
+
+                // TODO: Aquí podrías agregar validación de stock
+                // if (producto.Stock < itemCarrito.Cantidad)
+                // {
+                //     throw new BadRequestException($"Stock insuficiente para {producto.Nombre}");
+                // }
+
+                var itemPedido = new ItemPedido
+                {
+                    ProductoId = itemCarrito.ProductoId,
+                    Cantidad = itemCarrito.Cantidad,
+                    PrecioUnitario = producto.Precio // Usar precio actual del producto
+                };
+
+                precioTotal += itemPedido.PrecioUnitario * itemPedido.Cantidad;
+                itemsPedido.Add(itemPedido);
+            }
+
+            // 5. Crear el pedido
+            var nuevoPedido = new Pedido
+            {
+                UsuarioId = carrito.UsuarioId,
+                Direccion = direccionEntrega,
+                TiempoEstimado = "30-45 min",
+                PrecioTotal = precioTotal,
+                EstadoPedido = EstadoPedido.Pendiente,
+                ItemsPedido = itemsPedido
+            };
+
+            // 6. Guardar el pedido
+            var pedidoCreado = await _pedidoRepository.CreateAsync(nuevoPedido);
+
+            // 7. Limpiar el carrito (importante!)
+            carrito.Items.Clear();
+            await _carritoRepository.UpdateAsync(carrito);
+
+            return PedidoDto.CreatePedido(pedidoCreado);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Application.Models.Request
         public EstadoPago EstadoPago { get; set; } = EstadoPago.Pendiente;
     }
 
-    public class MetodoPagoDto
+    public class CreationMetodoPagoDto
     {
         [Required (ErrorMessage = "El Id del usuario es requerido")]
         public int UsuarioId { get; set; }

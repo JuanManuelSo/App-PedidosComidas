@@ -24,6 +24,14 @@ namespace Infrastructure
                 .Include(c => c.Usuario)
                 .FirstOrDefaultAsync(c => c.UsuarioId == userId);
         }
+        public override async Task<Carrito?> GetByIdAsync(int id)
+        {
+            return await _dbContext.Carrito
+                .Include(c => c.Items)          
+                    .ThenInclude(i => i.Producto) 
+                .Include(c => c.Usuario)          
+                .FirstOrDefaultAsync(c => c.Id == id);
+        }
 
 
     }

@@ -117,6 +117,36 @@ namespace App_PedidosComidas.Controllers
             }
         }
 
+        [HttpPost("checkout")]
+        public async Task<IActionResult> CheckoutCarrito([FromBody] CheckoutRequest request)
+        {
+            try
+            {
+                var pedido = await _pedidoService.CreatePedidoFromCarrito(
+                    request.CarritoId,
+                    request.DireccionEntrega
+                );
+
+                return CreatedAtAction(
+                    nameof(GetPedidoById),
+                    new { id = pedido.Id },
+                    pedido
+                );
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (BadRequestException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
         [HttpGet("{id}/precio-usd")]
         public async Task<IActionResult> GetPedidoPriceInUsd(int id)
         {
@@ -142,3 +172,4 @@ namespace App_PedidosComidas.Controllers
         }
     }
 }
+

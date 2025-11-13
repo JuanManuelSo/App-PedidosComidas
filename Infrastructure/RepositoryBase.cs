@@ -20,23 +20,23 @@ namespace Infrastructure
             _db_context = dbContext;
         }
 
-        public async Task<List<T>> GetAllAsync() { 
+        public virtual async Task<List<T>> GetAllAsync() { 
             return await _db_context.Set<T>().ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public virtual async Task<T> GetByIdAsync(int id)
         {
             return await _db_context.Set<T>().FindAsync(new object[] { id });
         }
 
-        public async Task<T> CreateAsync(T entity)
+        public virtual async Task<T> CreateAsync(T entity)
         {
             _db_context.Set<T>().Add(entity);
             await _db_context.SaveChangesAsync();
             return entity;
         }
 
-        public async Task UpdateAsync(T entity)
+        public virtual async Task UpdateAsync(T entity)
         {
             _db_context.Set<T>().Update(entity);
             await _db_context.SaveChangesAsync();

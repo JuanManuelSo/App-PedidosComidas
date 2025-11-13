@@ -18,6 +18,7 @@ namespace Application.Interfaces
         Task UpdateEstadoPedido(int id, EstadoPedido nuevoEstado);
         Task DeletePedido(int id);
         Task <IEnumerable<PedidoDto>> GetPedidosByUsuarioId(int usuarioId);
-      
+        Task<PedidoDto> CreatePedidoFromCarrito(int carritoId, string direccionEntrega);
+
     }
 }
